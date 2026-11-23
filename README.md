@@ -115,16 +115,29 @@ mysql -u root -p < init_db.sql
 
 ### 2. 配置连接信息
 
-编辑 `backend/.env`：
+`backend/.env` 含密码与密钥，**未纳入版本库**，首次运行需从模板复制：
+
+```bash
+cd backend
+
+# Windows
+copy .env.example .env
+# macOS / Linux
+cp .env.example .env
+```
+
+然后编辑 `backend/.env`，至少修改密码与密钥两项：
 
 ```ini
 MYSQL_HOST=127.0.0.1
 MYSQL_PORT=3306
 MYSQL_USER=root
 MYSQL_PASSWORD=你的密码
-MYSQL_DATABASE=supermarket_bi
-SECRET_KEY=请替换为随机字符串
+MYSQL_DB=supermarket_bi
+SECRET_KEY=请替换为长随机字符串
 ```
+
+其余配置项（`ALGORITHM`、`ACCESS_TOKEN_EXPIRE_MINUTES`、`CORS_ORIGINS`）保持默认即可。
 
 ### 3. 安装依赖并写入初始数据
 
@@ -322,6 +335,18 @@ cd backend
 ---
 
 ## 常见问题
+
+<details>
+<summary><b>克隆下来后能直接启动吗</b></summary>
+
+不能，需要先补齐本地环境，共三步：
+
+1. **配置环境变量**：`backend/.env` 含密码与密钥，未纳入版本库，从 `.env.example` 复制并填写
+2. **初始化数据库**：执行 `init_db.sql` 建库建表
+3. **写入初始数据**：安装依赖后执行 `scripts/seed.py`，否则没有账号无法登录
+
+另外 `.venv/`、`node_modules/`、`dist/` 均被 `.gitignore` 排除，需重新生成。
+</details>
 
 <details>
 <summary><b>登录提示「账号或密码错误」</b></summary>
