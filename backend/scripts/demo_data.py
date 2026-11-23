@@ -292,7 +292,11 @@ def generate_demo_data(db: Session) -> None:
             )
             print("演示库存调整完成：1 笔")
 
-    # ---------- 7. 巡检快照 ----------
+    # ---------- 7. 扩充商品的初始库存 ----------
+    # 必须在巡检之前完成，否则扩充商品会被全部判定为低库存
+    _fill_new_product_stock(db, admin, today)
+
+    # ---------- 8. 巡检快照 ----------
     record = inspection_service.run_inspection(db, admin)
     _set_created_at(
         db, "inspection_record", record.id, today - timedelta(days=1), 16, 0
