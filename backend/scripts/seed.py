@@ -23,9 +23,11 @@ from app.db.session import SessionLocal  # noqa: E402
 from app.models import Category, Product, SysConfig, User  # noqa: E402
 from scripts.demo_data import generate_demo_data  # noqa: E402
 
+# 初始账号：与本地演示库保持一致，首次登录后建议在界面中修改密码
 USERS = [
-    {"username": "admin", "password": "Admin@123", "real_name": "系统管理员", "role": "admin"},
-    {"username": "keeper", "password": "Keeper@123", "real_name": "库管员", "role": "keeper"},
+    {"username": "admin", "password": "123456", "real_name": "系统管理员", "role": "admin"},
+    {"username": "keeper", "password": "123456", "real_name": "库管员", "role": "keeper"},
+    {"username": "velpro", "password": "123456", "real_name": "L", "role": "admin"},
 ]
 
 CATEGORIES = [
